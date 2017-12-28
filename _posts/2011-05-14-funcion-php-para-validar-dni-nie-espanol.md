@@ -17,7 +17,11 @@ function is_valid_dni_nie($string) {
 
     $map = 'TRWAGMYFPDXBNJZSQVHLCKE';
 
-    list(, $number, $letter) = $matches;
+    list(, $nieLetter, $number, $letter) = $matches;
+
+    if ($nieLetter) {
+        $number = str_replace(['X', 'Y', 'Z'], [0, 1, 2], $nieLetter) ."". $number;
+    }
 
     return strtoupper($letter) === $map[((int) $number) % 23];
 }
